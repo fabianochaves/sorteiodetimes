@@ -4,18 +4,15 @@ setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 session_start();
 require ('Connections/connpdo.php');
 require ("classes/Url.php");
-require ("classes/UltimaRotinaAcessada.php");
 require_once ("classes/TempoSessao.php");
 
 $modulo = Url::getURL( 0 );
-$ultimaRotinaAcessada = new UltimaRotinaAcessada(false, false);
 
 //validação do tempo de sessão ativa
 if (isset( $_SESSION["sessiontime"] ) ) 
 { 
 	if ($_SESSION["sessiontime"] < time()) 
 	{
-		$ultimaRotinaAcessada->reabrirAoLogar();
 		session_destroy();
 		require "modulos/440.php";
 		exit();
@@ -24,7 +21,6 @@ if (isset( $_SESSION["sessiontime"] ) )
 	else
 	{
 		TempoSessao::atualizar();
-		$ultimaRotinaAcessada = new UltimaRotinaAcessada($conn, $_SESSION['user']);
 	}
 } 
 else
@@ -62,47 +58,17 @@ else
 
 		if ($possui_permissao)
 		{
-			if ($modulo == 'inicio')
-			{
-				$ultimaRotina = $ultimaRotinaAcessada->obter();
-				
-				if ($ultimaRotina !== false)
-				{
-					if ($ultimaRotina['reabrir_ultima_rotina'] == true)
-					{
-						$ultimaRotinaAcessada->naoReabrirAoLogar();
-
-						$rotinaAcessadaQuantoTempoAtrasEmMinutos = 
-							((time() - strtotime($ultimaRotina['data_ultima_rotina'])) / 60);
-
-						if ($rotinaAcessadaQuantoTempoAtrasEmMinutos <= 30)
-						{
-							$ultimaRotina = $ultimaRotina['nome_ultima_rotina'];
-							header("location: $ultimaRotina"); 	
-							exit();
-						}
-					}
-				}
-			}
-			else if (!in_array($modulo, obterExcessoes()))
-			{
-				$ultimaRotinaAcessada->salvar($modulo);
-			}
-
 			require "modulos/" . $modulo . ".php";
 		}
 		else
 		{
-			$ultimaRotinaAcessada->reabrirAoLogar();
 			require "modulos/403.php";
 		}		
 	}
 	else
 	{
 		if ($modulo != 'processos' && $modulo != 'js')
-			$ultimaRotinaAcessada->reabrirAoLogar();
-			
-		require "modulos/404.php";
+			require "modulos/404.php";
 	}
 }
 ?>
