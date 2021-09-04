@@ -1,11 +1,10 @@
 <?php
-//CXESCAD001GRA - MPS 24/11/2020 - CADASTRO DE PERFIL
+//GRAVAR CADASTRO DE PMENU
 include("../../Connections/connpdo.php");
-include("CXESCAD042LOG.php");
 
 $tipo = $_POST['tipo'];
-$nome = addslashes(utf8_decode($_POST['nome']));
-$rotina = addslashes(utf8_decode($_POST['rotina']));
+$nome = addslashes($_POST['nome']);
+$rotina = addslashes($_POST['rotina']);
 $icone = $_POST['icone'];
 $menu = $_POST['menu'];
 $status = 1;
@@ -78,39 +77,23 @@ else
 		{
 			$id_menu = $conn->lastInsertId();
 
-			if ($id_menu != 0)
+			$perfis_adm = $conn->prepare("SELECT * FROM perfis WHERE id_perfil = 1");
+			try 
 			{
-				$logCadastro = obterLogCadastro($conn, $id_menu);
-				$logCadastro->salvar();
+				$perfis_adm->execute();
+			} 
+			catch (PDOException $e) 
+			{
+				$e->getMessage();
 			}
 
-			echo 'ok_' . $id_menu;
-			return false;
-		}
-	}
-}
+			$row_adm = $perfis_adm->fetch(PDO::FETCH_ASSOC);
 
-//////////////////////////////////////////////////////////////////////////////
+			$permissoes_adm = $row_adm['permissoes_perfil'] . "^" . $id_menu;
 
-function permitirMenuAoPerfil($conn, $menuID, $perfilID)
-{
-	$select_adm = $conn->prepare("SELECT permissoes_perfil FROM perfis WHERE id_perfil = $perfilID");
-
-	try 
-	{
-		$select_adm->execute();
-
-		if ($row_adm = $select_adm->fetch(PDO::FETCH_ASSOC))
-		{
-			$permissoes_adm = $row_adm['permissoes_perfil'];
-	
-			$permissoes_adm = $permissoes_adm != ""
-				? "$permissoes_adm^$menuID" : "$permissoes_adm";
-	
 			$update_adm = $conn->prepare("UPDATE perfis 
 			SET permissoes_perfil = '$permissoes_adm' 
-			WHERE id_perfil = $perfilID");
-	
+			WHERE id_perfil = 1");
 			try 
 			{
 				$update_adm->execute();
@@ -119,11 +102,11 @@ function permitirMenuAoPerfil($conn, $menuID, $perfilID)
 			{
 				$e->getMessage();
 			}
+			
+			echo 'ok_' . $id_menu;
+			return false;
 		}
-	} 
-	catch (PDOException $e) 
-	{
-		$e->getMessage();
 	}
 }
+
 ?>

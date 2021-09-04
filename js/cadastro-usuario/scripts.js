@@ -1,9 +1,7 @@
 $(this).ready(function () {
 
-    /* Função para ativar selects dinâmicos com a barra pesquisar "plugin chosen-select" */
     $('.chosen-select').chosen('destroy').chosen();
 
-    /* Função para quando os lançamentos for acionado o Botão Salvar */
     jQuery('#formulario').submit(function () {
         $("#btn_cadastrar").empty();
         $("#btn_cadastrar").append("<img src='assets/images/gif/aguarde1.gif' style='width:40px; height: 40px;' />");
@@ -41,7 +39,7 @@ $(this).ready(function () {
         else {
             jQuery.ajax({
                 type: "POST",
-                url: "processos/CXESCAD003/CXESCAD003GRA.php",
+                url: "processos/cadastro-usuario/cadastro-usuario-gravar.php",
                 data: dados,
                 success: function (data) {
                     setTimeout(function () {

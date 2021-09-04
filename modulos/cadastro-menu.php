@@ -31,7 +31,7 @@ include("Connections/connpdo.php");
                             </div>
                             <div>Cadastro de Menu/Módulo
                                 <div class="page-title-subheading">
-                                    CXESCAD042
+                                    Menu
                                 </div>
                             </div>
                         </div>

@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-    /* Função para ativar selects dinâmicos com a barra pesquisar "plugin chosen-select" */
     $('.chosen-select').chosen('destroy').chosen();
 
     jQuery('#status').change(function(){
@@ -33,7 +32,6 @@ $(document).ready(function() {
         return false;
     });
 
-    /* Função para quando os lançamentos for acionado o Botão Salvar */
     jQuery('#formulario').submit(function(){
 
         $("#btn_cadastrar").empty(); 
@@ -71,7 +69,7 @@ $(document).ready(function() {
         {
             jQuery.ajax({
                 type: "POST",
-                url: "processos/CXESCAD042/CXESCAD042GRA.php",
+                url: "processos/cadastro-menu/cadastro-menu-gravar.php",
                 data: dados,
                 success: function( data )
                 {  
