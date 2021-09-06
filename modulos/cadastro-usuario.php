@@ -2,6 +2,9 @@
 /* CADASTRO DE USUÁRIO */
 include("Connections/connpdo.php");
 
+$pasta_gravacao = "cadastro-usuario";
+$rotina_gravacao = "cadastro-usuario-gravar.php";
+
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -9,37 +12,14 @@ include("Connections/connpdo.php");
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Language" content="pt-br">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title><?php echo $_SESSION['nome_sistema']; ?> | Cadastro de Usuário</title>
 
-    <meta name="msapplication-tap-highlight" content="no">
-    <link href="./main.css" rel="stylesheet">
-    <link href="./css/checkbox.css" rel="stylesheet">
+    <?php include("processos/head-padrao/headers.php"); ?>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+    <script type="text/javascript" src="js/gravacao-padrao/scripts.js"></script>
 
-    <script type="text/javascript" src="js/cpf.js"></script>
-    <script type="text/javascript" src="js/maskfone.js"></script>
-
-    <script type="text/javascript" src="js/validarform.js"></script>
-
-    <!-- select chosen dinâmico !--->
-
-    <link rel="stylesheet" href="css/bootstrap-chosen.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-
-    <script src="js/chosen_modif.js"></script>
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.pt-BR.min.js">
-    </script>
-
-    <script type="text/javascript" src="js/priceFormatAjustado.js"></script>
-
-    <script src="js/valida_cpf_cnpj.js"></script>
 </head>
 
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -61,16 +41,15 @@ include("Connections/connpdo.php");
                     </div>
                 </div>
             </div>
-
-
             <div class="main-card mb-3 card col-md-12">
-
                 <div class="card-body">
                     <h5 class="card-title col-md-12 col text-center">Cadastro de Usuário</h5>
-
                     <div class="col-md-12 col text-left">
                         <form class="needs-validation offset-md-12 col-md-12 " name="formulario" id="formulario" method="POST" novalidate>
                             <br>
+                            <input type="hidden" name="pasta_gravacao" id="pasta_gravacao" value="<?php echo $pasta_gravacao; ?>" />
+                            <input type="hidden" name="rotina_gravacao" id="rotina_gravacao" value="<?php echo $rotina_gravacao; ?>" />
+                            
                             <div class="form-row">
                                 <div class="col-md-4">
                                     <label class="label_titulos">Nome</label>
@@ -128,11 +107,14 @@ include("Connections/connpdo.php");
                                     <label class="label_titulos">Nível</label>
                                     <select data-placeholder="Escolha..." name="nivel" id="nivel" class="form-control obrigatorios chosen-select" tabindex="2" required>
                                         <option selected value="">Escolha...</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
+                                        <?php
+                                        for($i=1;$i<=5;$i++)
+                                        {
+                                            ?>
+                                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                            <?php
+                                        }
+                                        ?>
                                     </select>
                                     <div class="valid-feedback">
                                         Ok!
@@ -214,22 +196,5 @@ include("Connections/connpdo.php");
                 </div>
             </div>
         </div>
-
     </div>
-
 </div>
-
-<script type="text/javascript" src="js/cadastro-usuario/scripts.js"></script>
-<script type="text/javascript" src="js/loadMasks.js"></script>
-
-
-<script>
-    $(document).ready(function() {
-
-        $('.valor').priceFormat({
-            prefix: '',
-            centsSeparator: ',',
-            thousandsSeparator: '.'
-        });
-    });
-</script>

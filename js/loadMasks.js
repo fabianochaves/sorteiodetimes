@@ -5,7 +5,8 @@ jQuery(document).ready(function () {
         format: 'dd/mm/yyyy',
         endDate: '0d',
         language: 'pt-BR',
-        autoclose: true
+        autoclose: true,
+        todayHighlight: true
     });
 
     const masks = "https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js";

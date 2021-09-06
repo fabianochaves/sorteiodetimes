@@ -1,7 +1,8 @@
 <?php
 /* CADASTRO DE MENU */
 include("Connections/connpdo.php");
-
+$pasta_gravacao = "cadastro-menu";
+$rotina_gravacao = "cadastro-menu-gravar.php";
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -14,6 +15,9 @@ include("Connections/connpdo.php");
     <title><?php echo $_SESSION['nome_sistema']; ?> | Cadastro de Menu</title>
 
     <?php include("processos/head-padrao/headers.php"); ?>
+
+    <script type="text/javascript" src="js/cadastro-menu/funcoes.js"></script>
+    <script type="text/javascript" src="js/gravacao-padrao/scripts.js"></script>
 
 
 </head>
@@ -48,6 +52,8 @@ include("Connections/connpdo.php");
                             <form class="needs-validation offset-md-12 col-md-12 " name="formulario" id="formulario"
                                 method="POST" novalidate>
                                 <br>
+                                <input type="hidden" name="pasta_gravacao" id="pasta_gravacao" value="<?php echo $pasta_gravacao; ?>" />
+                                <input type="hidden" name="rotina_gravacao" id="rotina_gravacao" value="<?php echo $rotina_gravacao; ?>" />
                                 <div class="form-row">
                                     <div id="div_tipo" class="col-md-8">
                                         <label class="label_titulos">Tipo</label>
@@ -136,7 +142,7 @@ include("Connections/connpdo.php");
                                             foreach ($menus_arr as $key => &$menu)
                                             {
                                                 $id_menu = $key;
-                                                $nome_menu = utf8_encode($menu['nome_menu']);
+                                                $nome_menu = $menu['nome_menu'];
 
                                                 if ($menu['menu_menu'] == 0)
                                                 {
@@ -216,17 +222,3 @@ include("Connections/connpdo.php");
             </div>
         </div>
     </div>
-
-    <script type="text/javascript" src="js/cadastro-menu/scripts.js"></script>
-    <script type="text/javascript" src="js/somenteNumeros.js"></script>
-    <script type="text/javascript" src="js/somenteLetras.js"></script>
-
-    <script>
-    $('.datepicker').datepicker({
-        format: 'dd/mm/yyyy',
-        endDate: '0d',
-        language: 'pt-BR',
-        autoclose: true,
-        todayHighlight: true
-    });
-    </script>

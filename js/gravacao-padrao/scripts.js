@@ -37,9 +37,15 @@ $(this).ready(function () {
 
         }
         else {
+
+            var pasta = $("#pasta_gravacao").val();
+            var rotina = $("#rotina_gravacao").val();
+
+            var url = "processos/"+pasta+"/"+rotina;
+
             jQuery.ajax({
                 type: "POST",
-                url: "processos/cadastro-usuario/cadastro-usuario-gravar.php",
+                url: url,
                 data: dados,
                 success: function (data) {
                     setTimeout(function () {
@@ -59,15 +65,12 @@ $(this).ready(function () {
                             $('#msg_erro').text(mensagem);
 
                             var erro = document.getElementById('erro');
-
                             erro.style.display = 'block';
 
                             setTimeout(function () {
                                 erro.style.display = 'none';
                                 return false;
                             }, 3000);
-
-
                             return false;
                         }
                         else if (status == 'ok') {
