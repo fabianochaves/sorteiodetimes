@@ -2,13 +2,13 @@
 /* GRAVAR CADASTRO DE USUÁRIO */
 include("../../Connections/connpdo.php");
 
-$nome = addslashes(utf8_decode($_POST['nome']));
+$nome = addslashes($_POST['nome']);
 $perfil = $_POST['perfil'];
 $telefone = $_POST['telefone'];
 $goleiro = $_POST['goleiro'];
 $nivel = $_POST['nivel'];
-$email = addslashes(utf8_decode($_POST['email']));
-$login = addslashes(utf8_decode($_POST['login']));
+$email = addslashes($_POST['email']);
+$login = addslashes($_POST['login']);
 $senha = md5($_POST['senha']);
 $status = 1;
 
@@ -31,11 +31,11 @@ if ($busca->rowCount() >= 1)
 else
 {
     $insere = $conn->prepare("INSERT INTO usuarios 
-    (nome_usuario,login_usuario,senha_usuario,perfil_usuario,
+    (nome_usuario, nivel_usuario, goleiro_usuario,login_usuario,senha_usuario,perfil_usuario,
 	telefone_usuario,
     email_usuario,status_usuario) 
     VALUES 
-    ('$nome','$login','$senha','$perfil',
+    ('$nome','$nivel','$goleiro','$login','$senha','$perfil',
 	'$telefone',
     '$email','$status')");
 	try 

@@ -1,20 +1,18 @@
-/* CXESCAD002FILTRO - MPS 30/11 - JS Consulta de Empresa */
+/* CXESCAD042FILTRO - MPS 18/12/2020 - JS CONSULTA DE MÓDULO GERAL*/
 
 function Filtrar() {
-
     $("#resultado_grid").empty();
     var carrega = document.getElementById('aguarde');
 
     carrega.style.display = 'block';
 
-    var empresaID = $("#filtro_empresa").val().split('_')[0];
-    var perfilID = $("#filtro_perfil").val();
-
     jQuery.ajax({
         type: "POST",
-        url: "processos/CXESCAD003CON/CXESCAD003FILTRO.php",
-        data: { ok: 1, empresaID: empresaID, perfilID: perfilID },
+        url: "processos/CXESCAD042CON/CXESCAD042FILTRO.php",
+        data: { ok: 1/*filtro: filtro*/ },
         success: function (data) {
+            const colunas = [1, 2, 3, 4, 5, 6, 7, 8];
+            const nomeConsulta = "Módulo Geral";
 
             carrega.style.display = 'none';
             $("#resultado_grid").empty();
@@ -22,8 +20,7 @@ function Filtrar() {
 
             $.fn.dataTable.moment('DD/MM/YYYY');
             $('#tab_grid').dataTable().fnDestroy();
-
-            var empresa = $("#filtro_empresa").val().split('_')[1];
+            var periodo = $("#filtro").val();
 
             var table = $('#tab_grid').DataTable({
                 "scrollY": "340px",
@@ -65,7 +62,7 @@ function Filtrar() {
                         text: '<i class="fa fa-files-o"></i>',
                         footer: true,
                         exportOptions: {
-                            columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+                            columns: colunas
                         },
                         copyTitle: "Tabela Copiada"
 
@@ -75,18 +72,18 @@ function Filtrar() {
                         text: '<i class="fa fa-print"></i>',
                         footer: true,
                         exportOptions: {
-                            columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+                            columns: colunas
                         },
-                        title: '<center><font size="4">Usuários - Empresa: ' + empresa + '</font></center>',
+                        title: '<center><font size="4">' + nomeConsulta + '</font></center>',
                     },
                     {
                         extend: 'excel',
                         text: '<i class="fa fa-file-excel-o"></i>',
                         footer: true,
                         exportOptions: {
-                            columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+                            columns: colunas
                         },
-                        title: 'Usuários - Empresa: ' + empresa,
+                        title: nomeConsulta,
                     },
                     {
                         extend: 'pdfHtml5',
@@ -95,9 +92,9 @@ function Filtrar() {
                         text: '<i class="fa fa-file-pdf-o"></i>',
                         footer: true,
                         exportOptions: {
-                            columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+                            columns: colunas
                         },
-                        title: 'Usuários - Empresa: ' + empresa,
+                        title: nomeConsulta,
                         customize: function (doc) {
                             doc.pageMargins = [20, 15, 20, 15];
 
@@ -139,12 +136,7 @@ function Filtrar() {
 }
 
 jQuery(document).ready(function () {
-    $('.chosen-select').chosen('destroy').chosen();
-
-    jQuery('#btn_filtro').click(function () {
-        Filtrar();
-    });
-
+    Filtrar();
 });
 
 // #####################################################
@@ -201,39 +193,3 @@ jQuery(document).ready(function () {
     };
 
 }));
-
-
-$(function () {
-    $('.daterange').daterangepicker({
-
-        locale: {
-            format: 'DD/MM/YYYY',
-            separator: ' - ',
-            applyLabel: 'Aplicar',
-            cancelLabel: 'Cancelar',
-            fromLabel: 'De',
-            toLabel: 'At&eatilde',
-            customRangeLabel: 'Escolha',
-            daysOfWeek: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-            monthNames: ['Janeiro', 'Fevereiro', 'Mar&ccedil;o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            firstDay: 1
-        },
-
-        opens: 'left'
-    }, function (start, end, label) {
-        console.log(start.format('DD/MM/YYYY') + ' até ' + end.format('DD/MM/YYYY'));
-    }
-
-    );
-});
-
-
-/* Função para um input mostrar um calendário "datepicker.js" */
-
-$('.datepicker').datepicker({
-    format: 'dd/mm/yyyy',
-    //startDate: '0d',
-    endDate: '0d',
-    language: 'pt-BR',
-    autoclose: true
-});

@@ -49,11 +49,11 @@ $rotina_gravacao = "cadastro-usuario-gravar.php";
                             <br>
                             <input type="hidden" name="pasta_gravacao" id="pasta_gravacao" value="<?php echo $pasta_gravacao; ?>" />
                             <input type="hidden" name="rotina_gravacao" id="rotina_gravacao" value="<?php echo $rotina_gravacao; ?>" />
-                            
+
                             <div class="form-row">
                                 <div class="col-md-4">
                                     <label class="label_titulos">Nome</label>
-                                    <input autocomplete="off" type="text" name="nome" id="nome" style="height: 34px;" class="form-control obrigatorios somenteLetras" value="" required />
+                                    <input autocomplete="off" type="text" name="nome" id="nome" style="height: 34px;" class="form-control obrigatorios somenteLetras" tabindex="1" value="" required />
                                     <div class="valid-feedback">
                                         Ok!
                                     </div>
@@ -63,7 +63,7 @@ $rotina_gravacao = "cadastro-usuario-gravar.php";
                                 </div>
                                 <div class="col-md-5">
                                     <label class="label_titulos">E-mail</label>
-                                    <input autocomplete="off" type="email" name="email" id="email" style="height: 34px;" class="form-control obrigatorios" value="" required />
+                                    <input autocomplete="off" type="email" name="email" id="email" style="height: 34px;" class="form-control obrigatorios" tabindex="2" value="" required />
                                     <div class="valid-feedback">
                                         Ok!
                                     </div>
@@ -74,7 +74,7 @@ $rotina_gravacao = "cadastro-usuario-gravar.php";
                                 <div class="col-md-3">
                                     <label for="validationCustom01"></label>
                                     <label class="label_titulos">Perfil</label>
-                                    <select data-placeholder="Escolha o Perfil..." name="perfil" id="perfil" class="form-control obrigatorios chosen-select" tabindex="2" required>
+                                    <select data-placeholder="Escolha o Perfil..." name="perfil" id="perfil" class="form-control obrigatorios chosen-select" tabindex="3" required>
                                         <option selected value="">Escolha o Perfil...</option>
                                         <?php
                                         $query_perfil = $conn->prepare("SELECT * FROM perfis WHERE status_perfil = 1 AND id_perfil != 1000");
@@ -105,14 +105,13 @@ $rotina_gravacao = "cadastro-usuario-gravar.php";
                                 <div class="col-md-2">
                                     <label for="validationCustom01"></label>
                                     <label class="label_titulos">Nível</label>
-                                    <select data-placeholder="Escolha..." name="nivel" id="nivel" class="form-control obrigatorios chosen-select" tabindex="2" required>
+                                    <select data-placeholder="Escolha..." name="nivel" id="nivel" class="form-control obrigatorios chosen-select" tabindex="4" required>
                                         <option selected value="">Escolha...</option>
                                         <?php
-                                        for($i=1;$i<=5;$i++)
-                                        {
-                                            ?>
+                                        for ($i = 1; $i <= 5; $i++) {
+                                        ?>
                                             <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                            <?php
+                                        <?php
                                         }
                                         ?>
                                     </select>
@@ -126,7 +125,7 @@ $rotina_gravacao = "cadastro-usuario-gravar.php";
                                 <div class="col-md-2">
                                     <label for="validationCustom01"></label>
                                     <label class="label_titulos">Goleiro</label>
-                                    <select data-placeholder="Escolha..." name="goleiro" id="goleiro" class="form-control obrigatorios chosen-select" tabindex="2" required>
+                                    <select data-placeholder="Escolha..." name="goleiro" id="goleiro" class="form-control obrigatorios chosen-select" tabindex="5" required>
                                         <option selected value="">Escolha...</option>
                                         <option value="1">Sim</option>
                                         <option value="0">Não</option>
@@ -140,7 +139,7 @@ $rotina_gravacao = "cadastro-usuario-gravar.php";
                                 </div>
                                 <div class="col-md-2">
                                     <label class="label_titulos">Telefone</label>
-                                    <input autocomplete="off" type="tel" name="telefone" id="telefone" style="height: 34px;" class="form-control obrigatorios phone" value="" onKeyPress="return somenteNumeros(event);" required />
+                                    <input autocomplete="off" type="tel" name="telefone" id="telefone" style="height: 34px;" class="form-control obrigatorios phone" tabindex="6" onKeyPress="return somenteNumeros(event);" required />
                                     <div class="valid-feedback">
                                         Ok!
                                     </div>
@@ -150,7 +149,7 @@ $rotina_gravacao = "cadastro-usuario-gravar.php";
                                 </div>
                                 <div class="col-md-3">
                                     <label class="label_titulos">Login</label>
-                                    <input autocomplete="off" type="text" name="login" id="login" style="height: 34px;" class="form-control obrigatorios somenteTextoSemCaracteresEspeciais" value="" required />
+                                    <input autocomplete="off" type="text" name="login" id="login" style="height: 34px;" class="form-control obrigatorios somenteTextoSemCaracteresEspeciais" tabindex="7" required />
                                     <div class="valid-feedback">
                                         Ok!
                                     </div>
@@ -160,7 +159,7 @@ $rotina_gravacao = "cadastro-usuario-gravar.php";
                                 </div>
                                 <div class="col-md-3">
                                     <label class="label_titulos">Senha</label>
-                                    <input autocomplete="new-password" type="password" name="senha" id="senha" style="height: 34px;" class="form-control obrigatorios" value="" required />
+                                    <input autocomplete="new-password" type="password" name="senha" id="senha" style="height: 34px;" class="form-control obrigatorios" tabindex="8" required />
                                     <div class="valid-feedback">
                                         Ok!
                                     </div>

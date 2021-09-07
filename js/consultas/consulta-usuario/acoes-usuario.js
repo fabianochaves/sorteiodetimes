@@ -1,4 +1,4 @@
-/* CXESCAD003CONACOES - JS DAS AÇÕES NO GRID DA CONSULTA DE USUÁRIO */
+/* JS DAS AÇÕES NO GRID DA CONSULTA DE USUÁRIO */
 
 $(document).ready(function () {
 
@@ -9,7 +9,7 @@ $(document).ready(function () {
 
         jQuery.ajax({
             type: "POST",
-            url: "processos/CXESCAD003CON/CXESCAD003EDIT.php",
+            url: "processos/consulta-usuario/consulta-usuario-edit.php",
             data: { id: id },
             success: function (data) {
                 $("#dados_editar").empty();
@@ -52,7 +52,7 @@ $(document).ready(function () {
 
         jQuery.ajax({
             type: "POST",
-            url: "processos/CXESCAD003CON/CXESCAD003DESAT.php",
+            url: "processos/consulta-usuario/consulta-usuario-desativar.php",
             data: { id: id_desativar, status: status_desativar },
             success: function (data) {
                 carrega.style.display = 'none';

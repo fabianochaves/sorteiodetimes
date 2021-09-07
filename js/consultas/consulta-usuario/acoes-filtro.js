@@ -1,37 +1,36 @@
-/* CXESCAD042FILTRO - MPS 18/12/2020 - JS CONSULTA DE MÓDULO GERAL*/
+/* JS Consulta de Usuário */
 
 function Filtrar() {
-    $("#resultado_grid").empty();
-    var carrega = document.getElementById('aguarde');
 
-    carrega.style.display = 'block';
+    $("#resultado_grid").empty();
+
+    $("#aguarde").attr("style", "display: block");
 
     jQuery.ajax({
         type: "POST",
-        url: "processos/CXESCAD042CON/CXESCAD042FILTRO.php",
-        data: { ok: 1/*filtro: filtro*/ },
+        url: "processos/consulta-usuario/consulta-usuario-filtro.php",
+        data: { ok: 1},
         success: function (data) {
-            const colunas = [1, 2, 3, 4, 5, 6, 7, 8];
-            const nomeConsulta = "Módulo Geral";
 
-            carrega.style.display = 'none';
+            $("#aguarde").attr("style", "display: none");
             $("#resultado_grid").empty();
             $("#resultado_grid").html(data);
 
             $.fn.dataTable.moment('DD/MM/YYYY');
             $('#tab_grid').dataTable().fnDestroy();
-            var periodo = $("#filtro").val();
+
+            var colunas = "1, 2, 3, 4, 5, 6, 7, 8";
 
             var table = $('#tab_grid').DataTable({
                 "scrollY": "340px",
                 "scrollX": true,
                 "scrollCollapse": true,
                 "paging": false,
-                /*
+                
                 "fixedColumns":   {
                     leftColumns: 3
                 },
-                */
+                
                 "info": false,
                 "order": [[1, "asc"]],
                 "language": {
@@ -62,7 +61,7 @@ function Filtrar() {
                         text: '<i class="fa fa-files-o"></i>',
                         footer: true,
                         exportOptions: {
-                            columns: colunas
+                            columns: [colunas]
                         },
                         copyTitle: "Tabela Copiada"
 
@@ -72,18 +71,18 @@ function Filtrar() {
                         text: '<i class="fa fa-print"></i>',
                         footer: true,
                         exportOptions: {
-                            columns: colunas
+                            columns: [colunas]
                         },
-                        title: '<center><font size="4">' + nomeConsulta + '</font></center>',
+                        title: '<center><font size="4">Usuários</font></center>',
                     },
                     {
                         extend: 'excel',
                         text: '<i class="fa fa-file-excel-o"></i>',
                         footer: true,
                         exportOptions: {
-                            columns: colunas
+                            columns: [colunas]
                         },
-                        title: nomeConsulta,
+                        title: 'Usuários',
                     },
                     {
                         extend: 'pdfHtml5',
@@ -92,9 +91,9 @@ function Filtrar() {
                         text: '<i class="fa fa-file-pdf-o"></i>',
                         footer: true,
                         exportOptions: {
-                            columns: colunas
+                            columns: [colunas]
                         },
-                        title: nomeConsulta,
+                        title: 'Usuários',
                         customize: function (doc) {
                             doc.pageMargins = [20, 15, 20, 15];
 
@@ -136,7 +135,10 @@ function Filtrar() {
 }
 
 jQuery(document).ready(function () {
-    Filtrar();
+
+        Filtrar();
+   
+
 });
 
 // #####################################################
@@ -217,15 +219,4 @@ $(function () {
     }
 
     );
-});
-
-
-/* Função para um input mostrar um calendário "datepicker.js" */
-
-$('.datepicker').datepicker({
-    format: 'dd/mm/yyyy',
-    //startDate: '0d',
-    endDate: '0d',
-    language: 'pt-BR',
-    autoclose: true
 });

@@ -6,6 +6,7 @@ $data = addslashes(utf8_decode($_POST['data_partida']));
 $data = date("Y-m-d", strtotime($data));
 $hora = addslashes(utf8_decode($_POST['hora']));
 $local = $_POST['local'];
+$jogadores = $_POST['nro_jogadores'];
 
 $busca = $conn->prepare("SELECT * FROM partidas WHERE data_partida='$data' AND hora_partida='$hora' AND local_partida = '$local'");
 
@@ -26,9 +27,9 @@ if ($busca->rowCount() >= 1)
 else
 {
     $insere = $conn->prepare("INSERT INTO partidas 
-    (local_partida,data_partida,hora_partida,status_partida) 
+    (local_partida,jogadoresTime_partida,data_partida,hora_partida,status_partida) 
     VALUES 
-    ('$local','$data','$hora',1)");
+    ('$local','$jogadores','$data','$hora',1)");
 	try 
 	{
 		$insere->execute();

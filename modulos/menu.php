@@ -24,11 +24,11 @@ else
 <link rel="shortcut icon" href="assets/images/favicon.ico" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
 
-<link href="js/plugins/jquery/jquery-3.4.1.js" rel="stylesheet">
+<link href="js/jquery3.4.1.js" rel="stylesheet">
 
-<script src="js/plugins/bootstrap/bootstrap.bundle-4.0.0.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bootstrap.bundle.min.js" type="text/javascript" charset="utf-8"></script>
 
-<script src="js/plugins/bootstrap/bootstrap-4.0.0.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 
 
 <div class="app-header header-shadow">

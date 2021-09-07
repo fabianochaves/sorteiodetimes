@@ -1,38 +1,27 @@
-/* CXESCAD003CONEDITAR - JS DO MODAL EDITAR DA CONSULTA DE USUÁRIO */
-
-function ValidarForm() {
-    var forms = document.getElementsByClassName('needs-validation');
-
-    let obrigatorios = true;
-
-    $('.obrigatorios').each(function () {
-        if ($(this).val() == '') {
-            obrigatorios = false;
-            return;
-        }
-    });
-
-    if ($('#trocarSenha')[0].checked && $('#nova_senha').val() == '')
-        obrigatorios = false;
-
-    var validation = Array.prototype.filter.call(forms, function (form) {
-        form.classList.add('was-validated');
-    });
-
-    return obrigatorios;
-}
-
+/* JS DO MODAL EDITAR DA CONSULTA DE USUÁRIO */
 $(document).ready(function () {
 
     $('.chosen-select').chosen('destroy').chosen();
 
     jQuery('#confirma_editar').click(function () {
-
+   
         $(".modal").animate({
             scrollTop: $("#confirma_editar").offset().top
         }, 200);
 
-        if (ValidarForm() == false) return false;
+        var obrigatorios = true;
+
+        $('.obrigatorios').each(function () {
+            if ($(this).val() == '') {
+                obrigatorios = false;
+                return;
+            }
+        });
+
+        if(obrigatorios == false)
+        {
+            return false;
+        }
 
         $(this).empty();
         $(this).append("<img src='assets/images/gif/aguarde1.gif' style='width:40px; height: 40px;' />");
@@ -44,7 +33,7 @@ $(document).ready(function () {
 
         jQuery.ajax({
             type: "POST",
-            url: "processos/CXESCAD003CON/CXESCAD003GRAEDIT.php",
+            url: "processos/consulta-usuario/consulta-usuario-gravaedit.php",
             data: dados,
             success: function (data) {
                 setTimeout(function () {
