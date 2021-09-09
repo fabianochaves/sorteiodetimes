@@ -18,8 +18,8 @@ catch (PDOException $e)
 $row = $busca->fetch(PDO::FETCH_ASSOC);
 
 $tipo = $row['tipo_menu'];
-$nome = utf8_encode($row['nome_menu']);
-$rotina = utf8_encode($row['rotina_menu']);              
+$nome = $row['nome_menu'];
+$rotina = $row['rotina_menu'];              
 $icone = $row['icone_menu'];
 $menu_menu = $row['menu_menu'];
 ?>

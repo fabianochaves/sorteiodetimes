@@ -4,7 +4,7 @@ include("../../Connections/connpdo.php");
 
 $data = addslashes(utf8_decode($_POST['data_partida']));
 $data = date("Y-m-d", strtotime($data));
-$hora = addslashes(utf8_decode($_POST['hora']));
+$hora = addslashes($_POST['hora']);
 $local = $_POST['local'];
 $jogadores = $_POST['nro_jogadores'];
 

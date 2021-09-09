@@ -113,6 +113,7 @@ VALUES('$id_partida','$user','$datetime')
         $e->getMessage();
     }
 
+
     $cont = 1;
     $cont_incompletos = 0;
 
@@ -120,7 +121,7 @@ VALUES('$id_partida','$user','$datetime')
 
         $id_jogador = $row_confirmados['id_usuario'];
 
-        $qtd_jogadores = qtdJogadores($conn, $cont);
+        $qtd_jogadores = qtdJogadores($conn, $cont, $id_partida);
 
 
 
@@ -128,18 +129,20 @@ VALUES('$id_partida','$user','$datetime')
         if ($qtd_jogadores == $nro_jogadores) {
 
             //OUTRO TIME
+            $flag1 = 0;
             for ($i = 1; $i <= $total_times - 1; $i++) {
 
-                $qtd_jogadores = qtdJogadores($conn, $i);
+                $qtd_jogadores = qtdJogadores($conn, $i, $id_partida);
 
                 //AINDA EXISTE VAGA
-                if ($qtd_jogadores < $nro_jogadores) {
+                if ($flag == 0) {
+                    if ($qtd_jogadores < $nro_jogadores) {
 
-                    Gravar($conn, $id_sorteio, $id_partida, $id_jogador, 0, $i);
-                    $cont++;
-                }
-
-                break;
+                        Gravar($conn, $id_sorteio, $id_partida, $id_jogador, 0, $i);
+                        $cont++;
+                        $flag = 1;
+                    }
+                } 
             }
         } else {
 
@@ -156,7 +159,7 @@ VALUES('$id_partida','$user','$datetime')
                         for ($i = 1; $i <= $total_times - 1; $i++) {
 
                             if ($flag == 0) {
-                                $qtd_jogadores = qtdJogadores($conn, $i);
+                                $qtd_jogadores = qtdJogadores($conn, $i, $id_partida);
 
                                 //AINDA EXISTE VAGA
                                 if ($qtd_jogadores < $nro_jogadores) {
@@ -180,6 +183,7 @@ VALUES('$id_partida','$user','$datetime')
             }
         }
     }
+
 
 ?>
     <a href="#"  class="download">
@@ -284,11 +288,11 @@ VALUES('$id_sorteio', '$id_partida,','$id_jogador','$goleiro_jogador','$time')
         return $gravacao;
     }
 
-    function qtdJogadores($conn, $time)
+    function qtdJogadores($conn, $time, $id_partida)
     {
 
         $busca = $conn->prepare("
-    SELECT * FROM sorteio_distribuicao WHERE time_distribuicao = '$time'
+    SELECT * FROM sorteio_distribuicao WHERE time_distribuicao = '$time' 
 ");
         try {
             $busca->execute();

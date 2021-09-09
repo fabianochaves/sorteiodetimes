@@ -17,7 +17,7 @@ catch (PDOException $e)
 
 $row = $busca->fetch(PDO::FETCH_ASSOC);
 
-$nome = utf8_encode($row['nome_local']);
+$nome = $row['nome_local'];
 
 ?>
 

@@ -2,7 +2,7 @@
 /* GRAVAR CADASTRO DE USUÁRIO */
 include("../../Connections/connpdo.php");
 
-$nome = addslashes(utf8_decode($_POST['nome']));
+$nome = addslashes($_POST['nome']);
 
 $busca = $conn->prepare("SELECT * FROM locais WHERE nome_local ='$nome'");
 

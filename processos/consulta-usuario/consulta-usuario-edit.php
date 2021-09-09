@@ -74,7 +74,7 @@ $status = $row['status_usuario'];
                     {
                         $selected = "";
                     }
-                    echo '<option '.$selected.' value="' . $row_perfil['id_perfil'] . '">' . utf8_encode($row_perfil['nome_perfil']) . '</option>';
+                    echo '<option '.$selected.' value="' . $row_perfil['id_perfil'] . '">' . $row_perfil['nome_perfil'] . '</option>';
                 }
                 ?>
 

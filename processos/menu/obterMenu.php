@@ -35,7 +35,7 @@ function GerarHtmlMenu($menus, $modulo)
 
         if ($menu['tipo'] == 1)
         {
-            $href = URL::getBase().utf8_encode($menu['rotina']);
+            $href = URL::getBase().$menu['rotina'];
             $icon1 = 'metismenu-icon';
             $icon2 = $menu['icone'];
 
