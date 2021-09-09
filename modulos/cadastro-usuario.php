@@ -86,7 +86,7 @@ $rotina_gravacao = "cadastro-usuario-gravar.php";
                                         }
 
                                         while ($row_perfil = $query_perfil->fetch(PDO::FETCH_ASSOC)) {
-                                            echo '<option value="' . $row_perfil['id_perfil'] . '">' . utf8_encode($row_perfil['nome_perfil']) . '</option>';
+                                            echo '<option value="' . $row_perfil['id_perfil'] . '">' . $row_perfil['nome_perfil'] . '</option>';
                                         }
                                         ?>
 
