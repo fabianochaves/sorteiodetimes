@@ -65,7 +65,7 @@ $rotina_gravacao = "cadastro-partida-gravar.php";
                                         }
 
                                         while ($row_local = $query_local->fetch(PDO::FETCH_ASSOC)) {
-                                            echo '<option value="' . $row_local['id_local'] . '">' . utf8_encode($row_local['nome_local']) . '</option>';
+                                            echo '<option value="' . $row_local['id_local'] . '">' . $row_local['nome_local'] . '</option>';
                                         }
                                         ?>
 

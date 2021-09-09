@@ -28,7 +28,7 @@ function GerarMenuTreeView($menus, $perm)
         $menu_input = '
         <label><input '.$checked.' id="'.$menu_idd.'" name="'.$menu_idd.'" 
         type="checkbox" value="'.$value.'" onChange="ChangeTreeViewValue(\''.$menu_idd.'\');"/> 
-        '.utf8_encode($menu['nome']).'</label>';
+        '.$menu['nome'].'</label>';
 
         $html = "$html<li>".$menu_input;
     

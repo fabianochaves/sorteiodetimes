@@ -5,8 +5,8 @@ include("../../Connections/connpdo.php");
 
 $id = $_POST['id'];
 $tipo = $_POST['tipo'];
-$nome = addslashes(utf8_decode($_POST['nome']));
-$rotina = addslashes(utf8_decode($_POST['rotina']));
+$nome = addslashes($_POST['nome']);
+$rotina = addslashes($_POST['rotina']);
 $icone = $_POST['icone'];
 $menu = $_POST['menu'];
 
