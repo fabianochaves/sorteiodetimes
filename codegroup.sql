@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 09-Set-2021 às 18:03
+-- Generation Time: 09-Set-2021 às 18:06
 -- Versão do servidor: 10.1.37-MariaDB
 -- versão do PHP: 5.6.39
 
@@ -22,15 +22,6 @@ SET time_zone = "+00:00";
 -- Database: `codegroup`
 --
 
-DELIMITER $$
---
--- Functions
---
-CREATE DEFINER=`topsun_testes`@`%` FUNCTION `SPLIT_STRING` (`str` VARCHAR(255), `delim` VARCHAR(12), `pos` INT) RETURNS VARCHAR(255) CHARSET latin1 COLLATE latin1_general_ci RETURN REPLACE(SUBSTRING(SUBSTRING_INDEX(str, delim, pos),
-       LENGTH(SUBSTRING_INDEX(str, delim, pos-1)) + 1),
-       delim, '')$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
