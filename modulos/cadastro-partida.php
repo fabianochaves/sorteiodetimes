@@ -84,7 +84,7 @@ $rotina_gravacao = "cadastro-partida-gravar.php";
                                     <select data-placeholder="Escolha..." name="nro_jogadores" id="nro_jogadores" class="form-control obrigatorios chosen-select" tabindex="2" required>
                                         <option selected value="">Escolha...</option>
                                         <?php
-                                        for ($i = 1; $i <= 11; $i++) {
+                                        for ($i = 5; $i <= 11; $i++) {
                                         ?>
                                             <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                         <?php

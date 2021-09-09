@@ -35,7 +35,7 @@ function Filtrar() {
                 
                 
                 "info": false,
-                "order": [[1, "asc"]],
+                "order": [[2, "asc"]],
                 "language": {
                     "lengthMenu": "Exibir _MENU_ registros por página",
                     "zeroRecords": "Nenhum Registro encontrado...",
