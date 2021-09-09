@@ -5,7 +5,10 @@ try {
     $database = 'codegroup';
     $db_user = 'codegroup';
     $db_password = 'Code@Group2021';
-    $opcoes = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
+    $opcoes = array(
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
+    );
 
     // instancia a classe
     $conn = new PDO('mysql:host=' . $host . ';' . 'dbname=' . $database, $db_user, $db_password, $opcoes);
