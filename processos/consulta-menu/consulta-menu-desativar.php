@@ -1,7 +1,6 @@
 <?php
-/* CXESCAD042DESAT - 18/12/2020 - MODAL ALTERAR STATUS MÓDULO GERAL */
+/* MODAL ALTERAR STATUS MÓDULO GERAL */
 include("../../Connections/connpdo.php");
-include("../CXESCAD042/CXESCAD042LOG.php");
 
 if(isset($_POST['id']))
 {
@@ -25,9 +24,6 @@ if(isset($_POST['id']))
 
 	if ($acao == true)
 	{
-		$logStatus = obterLogStatus($conn, $id, $status, $status_novo);
-		$logStatus->salvar();
-		
 		echo "ok";
 	}
 	else

@@ -1,5 +1,5 @@
 <?php
-/* CXESCAD042FILTRO - MPS 18/12/2020 - CONSULTA DE MÓDULO GERAL */
+/* CONSULTA DE MÓDULO GERAL */
 
 include('../../Connections/connpdo.php');
 date_default_timezone_set('America/Sao_Paulo');
@@ -64,7 +64,7 @@ catch (PDOException $e) {
                 if ($tipo == 1)
                 {
                     $tipo = 'Módulo';
-                    $rotina = utf8_encode($row['rotina_menu']);
+                    $rotina = $row['rotina_menu'];
                 }
                 else
                 {
@@ -72,7 +72,7 @@ catch (PDOException $e) {
                     $rotina = '-';
                 }                
                 
-                $nome = utf8_encode($row['nome_menu']);
+                $nome = $row['nome_menu'];
                 $icone = $row['icone_menu'];
              
                 $status = $row['status_menu'];
@@ -169,4 +169,4 @@ catch (PDOException $e) {
     </table>
 </div>
 
-<script src="js/consultas/CXESCAD042CON/CXESCAD042ACOES.js"></script>
+<script src="js/consultas/consulta-menu/acoes-menu.js"></script>

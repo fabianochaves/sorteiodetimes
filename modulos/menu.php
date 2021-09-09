@@ -22,7 +22,7 @@ else
 }
 </style>
 <link rel="shortcut icon" href="assets/images/favicon.ico" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 <link href="js/jquery3.4.1.js" rel="stylesheet">
 
@@ -80,7 +80,7 @@ else
                         </div>
                         <div class="widget-content-left  ml-3 header-user-info">
                             <div class="widget-heading">
-                                <?php echo utf8_encode($_SESSION['nome']); ?>
+                                <?php echo $_SESSION['nome']; ?>
                             </div>
                             <div class="widget-subheading">
                                 <?php echo $_SESSION['nome_sistema']; ?>

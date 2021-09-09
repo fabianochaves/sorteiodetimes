@@ -1,4 +1,4 @@
-/* CXESCAD042CON - JS DAS AÇÕES NO GRID DA CONSULTA DE MÓDULO GERAL */
+/* JS DAS AÇÕES NO GRID DA CONSULTA DE MÓDULO/MENU GERAL */
 
 $(document).ready(function () {
 
@@ -9,7 +9,7 @@ $(document).ready(function () {
 
         jQuery.ajax({
             type: "POST",
-            url: "processos/CXESCAD042CON/CXESCAD042EDIT.php",
+            url: "processos/consulta-menu/consulta-menu-editar.php",
             data: { id: id },
             success: function (data) {
                 $("#dados_editar").empty();
@@ -53,7 +53,7 @@ $(document).ready(function () {
 
         jQuery.ajax({
             type: "POST",
-            url: "processos/CXESCAD042CON/CXESCAD042DESAT.php",
+            url: "processos/consulta-menu/consulta-menu-desativar.php",
             data: { id: id_desativar, status: status_desativar },
             success: function (data) {
                 carrega.style.display = 'none';

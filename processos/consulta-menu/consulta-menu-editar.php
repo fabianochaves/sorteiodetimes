@@ -150,3 +150,5 @@ $menu_menu = $row['menu_menu'];
     </div>
     <br>
 </form>
+
+<script src="js/consultas/consulta-menu/acoes-editar.js"></script>

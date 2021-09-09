@@ -1,24 +1,22 @@
 <?php
-/* SORTEAR TIMES */
+/* CONSULTA DE SORTEIOS */
 date_default_timezone_set('America/Sao_Paulo');
 ?>
 <html lang="pt-br">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="pt-br">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title><?php echo $_SESSION['nome_sistema']; ?> | Consulta de Confirmações</title>
+    <title><?php echo $_SESSION['nome_sistema']; ?> | Consulta de Sorteios</title>
     <link rel="shortcut icon" href="assets/images/favicon.ico" />
 
     <?php include('processos/head-consultas/headers-consulta.php') ?>
 
+</script>
+
 </head>
-
 <body>
-    <?php include('processos/consulta-confirmacao/modals.php') ?>
-
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <?php include("menu.php"); ?>
 
@@ -30,9 +28,9 @@ date_default_timezone_set('America/Sao_Paulo');
                             <div class="page-title-icon">
                                 <i class="pe-7s-albums icon-gradient bg-mean-fruit"></i>
                             </div>
-                            <div>Sorteio de Times
+                            <div>Consulta de Sorteios
                                 <div class="page-title-subheading">
-                                    SORTEIO
+                                    SORTEIOS REALIZADOS
                                 </div>
                             </div>
                         </div>
@@ -40,18 +38,17 @@ date_default_timezone_set('America/Sao_Paulo');
                 </div>
                 <div class="main-card col-md-12 mb-3 card">
                     <div class="card-body">
-                        <form name="form_filtro" id="form_filtro" class="needs-validation" action="" method="POST" novalidate>
+                    <form name="form_filtro" id="form_filtro" class="needs-validation" action="" method="POST" novalidate>
                             <div class="form-row">
                                 <div class="col-md-5 offset-md-4">
-                                    <label class="label_titulos" for="validationCustom01">Partida:</label>
-                                    <select data-placeholder="Escolha a Partida..." id="filtro" name="filtro" class="form-control obrigatorios chosen-select" required>
+                                    <label class="label_titulos" for="validationCustom01">Sorteio:</label>
+                                    <select data-placeholder="Escolha o Sorteio..." id="filtro" name="filtro" class="form-control obrigatorios chosen-select" required>
                                         <option value="">Escolha...</option>
                                         <?php
-                                        $query = $conn->prepare("
-                                        SELECT * FROM partidas p 
+                                        $query = $conn->prepare("SELECT * FROM partidas p 
                                         INNER JOIN locais l ON (l.id_local = p.local_partida)
-                                        WHERE status_partida = 2
-                                        ");
+                                        INNER JOIN sorteios s ON (s.id_sorteio = p.sorteio_partida)
+                                        WHERE status_partida = 3");
 
                                         try {
                                             $query->execute();
@@ -60,7 +57,7 @@ date_default_timezone_set('America/Sao_Paulo');
                                         }
 
                                         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-                                            echo '<option value="' . $row['id_partida'] . "_" . $row['jogadoresTime_partida'] . '">' . $row['nome_local'] . " | " . date("d/m/Y", strtotime($row['data_partida'])) . " | " . $row['hora_partida'] . '</option>';
+                                            echo '<option value="' . $row['id_sorteio'].'">' . $row['nome_local'] . " | " . date("d/m/Y", strtotime($row['data_partida'])) . " | " . $row['hora_partida'] .'</option>';
                                         }
                                         ?>
 
@@ -70,7 +67,7 @@ date_default_timezone_set('America/Sao_Paulo');
                                         Ok!
                                     </div>
                                     <div class="invalid-feedback">
-                                        Escolha a Partida!
+                                        Escolha o Sorteio!
                                     </div>
                                 </div>
                             </div>
@@ -78,19 +75,15 @@ date_default_timezone_set('America/Sao_Paulo');
                             <div class="form-row">
                                 <div class="col-md-12">
                                     <center>
-                                        <button type="button" id="btn_filtro" class="btn btn-success">Sortear <i class="fa fa-check-circle" aria-hidden="true"></i></button>
+                                        <button type="button" id="btn_filtro" class="btn btn-success">Filtrar <i class="fa fa-search" aria-hidden="true"></i></button>
                                     </center>
                                 </div>
                             </div>
                         </form>
                         <center><img id="aguarde" src="<?php echo URL::getBase(); ?>assets/images/gif/aguarde.gif" style="width: 120px; height: 120px; display:none;" /></center>
                         <center>
-                            <div class="alert alert-danger" id="existe_sorteio" style="display: none;">
-                                <strong>Sorteio já realizado!</strong>
-                                <br>
-                            </div>
                             <div id="resultado_grid" style="overflow:auto; width: 100%"></div>
                         </center>
                     </div>
                 </div>
-                <script src="js/sorteio/sortear.js"></script>
+                <script src="js/consultas/consulta-sorteio/acoes-filtro.js"></script>

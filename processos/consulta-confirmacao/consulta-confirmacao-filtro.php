@@ -2,6 +2,9 @@
 /* FILTRO CONSULTA DE CONFIRMAÇÃO */
 date_default_timezone_set('America/Sao_Paulo');
 session_start();
+$user = $_SESSION['user'];
+$perfil = $_SESSION['perfil'];
+
 
 include('../../Connections/connpdo.php');
 include('../../classes/Url.php');
@@ -26,6 +29,7 @@ $row_dados = $busca_dadosPartida->fetch(PDO::FETCH_ASSOC);
 
 $nro_jogadores = $row_dados['jogadoresTime_partida'];
 
+
 $busca_confirmacoes = $conn->prepare("SELECT * FROM confirmacoes WHERE partida_confirmacao = '$id_partida'");
 try {
     $busca_confirmacoes->execute();
@@ -37,117 +41,156 @@ $nro_confirmacoes = $busca_confirmacoes->rowCount();
 ?>
 
 <div class="app-main__inner">
-    <center>
-        <p>Mínimo de Confirmados: <b><?php echo $nro_jogadores * 2; ?></b> / Jogadores Confirmados: <b><?php echo $nro_confirmacoes; ?></b></p>
-    
-    </center>
-    <br>
-    <table id="tab_grid" class="table table-striped table-bordered" style="width:100%">
-        <thead>
-            <tr>
-                <th>
-                    <center>#</center>
-                </th>
-                <th>
-                    <center>Confirmado</center>
-                </th>
-                <th>
-                    <center>Nome</center>
-                </th>
-                <th>
-                    <center>Nível</center>
-                </th>
-                <th>
-                    <center>Goleiro</center>
-                </th>
-                <th>
-                    <center>Telefone</center>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
+    <?php
+    if ($perfil == 1) {
+    ?>
+        <center>
+            <p>Mínimo de Confirmados: <b><?php echo $nro_jogadores * 2; ?></b> / Jogadores Confirmados: <b><?php echo $nro_confirmacoes; ?></b></p>
             <?php
+            $minimo = $nro_jogadores * 2;
+            if ($nro_confirmacoes >= $minimo) {
+            ?>
+                <div class="alert alert-warning">
+                    <strong>Confirmações alcançadas!</strong> É Possível finalizar as confirmações e realizar o sorteio!
+                    <br>
+                </div>
+                <button type="button" id="<?php echo $id_partida; ?>" class="btn btn-info encerrar">Encerrar <i class="fa fa-check-circle"></i></button <?php
+                                                                                                                                                    }
+                                                                                                                                                        ?> </center>
+            <?php
+        }
+            ?>
+            <br>
+            <table id="tab_grid" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            <center>#</center>
+                        </th>
+                        <th>
+                            <center>Confirmado</center>
+                        </th>
 
-            while ($row = $busca->fetch(PDO::FETCH_ASSOC)) {
-                $id_usuario = $row['id_usuario'];
-                $nome = $row['nome_usuario'];
-                $nivel = $row['nivel_usuario'];
-                $goleiro = $row['goleiro_usuario'];
-                $telefone = $row['telefone_usuario'];
+                        <th>
+                            <center>Nome</center>
+                        </th>
+                        <?php
+                        if ($perfil == 1) {
+                        ?>
+                            <th>
+                                <center>Nível</center>
+                            </th>
+                        <?php
+                        }
+                        ?>
+                        <th>
+                            <center>Goleiro</center>
+                        </th>
+                        <th>
+                            <center>Telefone</center>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
 
-                if ($goleiro == 1) {
-                    $is_goleiro = "Sim";
-                } else {
-                    $is_goleiro = "Não";
-                }
+                    while ($row = $busca->fetch(PDO::FETCH_ASSOC)) {
+                        $id_usuario = $row['id_usuario'];
+                        $nome = $row['nome_usuario'];
+                        $nivel = $row['nivel_usuario'];
+                        $goleiro = $row['goleiro_usuario'];
+                        $telefone = $row['telefone_usuario'];
 
-                $busca_confirmacao = $conn->prepare("SELECT * FROM confirmacoes 
+                        if ($goleiro == 1) {
+                            $is_goleiro = "Sim";
+                        } else {
+                            $is_goleiro = "Não";
+                        }
+
+                        $busca_confirmacao = $conn->prepare("SELECT * FROM confirmacoes 
                 WHERE partida_confirmacao = '$id_partida' AND usuario_confirmacao = '$id_usuario'");
-                try {
-                    $busca_confirmacao->execute();
-                } catch (PDOException $e) {
-                    $e->getMessage();
-                }
+                        try {
+                            $busca_confirmacao->execute();
+                        } catch (PDOException $e) {
+                            $e->getMessage();
+                        }
 
-                if($busca_confirmacao->rowCount() > 0)
-                {
-                    $status = 1;
-                    $nome_status = "Sim";
-                    $cor_status = "green";
-                    $cor_button = "danger";
-                    $icon_button = "fa fa-close";
-                    $text_button = "Cancelar";
-                }
-                else
-                {
-                    $status = 0;
-                    $nome_status = "Não";
-                    $cor_status = "red";
-                    $cor_button = "success";
-                    $icon_button = "fa fa-check";
-                    $text_button = "Confirmar";
-                }
+                        if ($busca_confirmacao->rowCount() > 0) {
+                            $status = 1;
+                            $nome_status = "Sim";
+                            $cor_status = "green";
+                            $cor_button = "danger";
+                            $icon_button = "fa fa-close";
+                            $text_button = "Cancelar";
+                        } else {
+                            $status = 0;
+                            $nome_status = "Não";
+                            $cor_status = "red";
+                            $cor_button = "success";
+                            $icon_button = "fa fa-check";
+                            $text_button = "Confirmar";
+                        }
 
-            ?>
-                <tr>
-                    <td nowrap>
-                        <center>
-
-                            <button id="<?php echo $id_usuario . "_" . $nome . "_" . $status . "_" . $id_partida; ?>" class="btn btn-<?php echo $cor_button; ?> btn-sm btnConfirmar" type="button">
-                                <i class="<?php echo $icon_button; ?>" aria-hidden="true"></i> <?php echo $text_button; ?>
-                            </button>
-
-                        </center>
-                    </td>
-                    <td>
-                        <b>
-                            <font color="<?php echo $cor_status; ?>">
+                    ?>
+                        <tr>
+                            <td nowrap>
                                 <center>
-                                    <?php echo $nome_status; ?>
+                                    <?php
+                                    if ($perfil == 2) {
+                                        if ($user == $id_usuario) {
+                                    ?>
+                                            <button id="<?php echo $id_usuario . "_" . $nome . "_" . $status . "_" . $id_partida; ?>" class="btn btn-<?php echo $cor_button; ?> btn-sm btnConfirmar" type="button">
+                                                <i class="<?php echo $icon_button; ?>" aria-hidden="true"></i> <?php echo $text_button; ?>
+                                            </button>
+                                        <?php
+                                        }
+                                    } else {
+                                        ?>
+                                        <button id="<?php echo $id_usuario . "_" . $nome . "_" . $status . "_" . $id_partida; ?>" class="btn btn-<?php echo $cor_button; ?> btn-sm btnConfirmar" type="button">
+                                            <i class="<?php echo $icon_button; ?>" aria-hidden="true"></i> <?php echo $text_button; ?>
+                                        </button>
+                                    <?php
+                                    }
+                                    ?>
+
+
                                 </center>
-                            </font>
-                        </b>
-                    </td>
-                    <td>
-                        <center><?php echo $nome; ?></center>
-                    </td>
-                    <td>
-                        <center><?php echo $nivel; ?></center>
-                    </td>
-                    <td>
-                        <center><?php echo $is_goleiro; ?></center>
-                    </td>
-                    <td nowrap>
-                        <center><?php echo $telefone; ?></center>
-                    </td>
-                </tr>
-            <?php
+                            </td>
+                            <td>
+                                <b>
+                                    <font color="<?php echo $cor_status; ?>">
+                                        <center>
+                                            <?php echo $nome_status; ?>
+                                        </center>
+                                    </font>
+                                </b>
+                            </td>
+                            <td>
+                                <center><?php echo $nome; ?></center>
+                            </td>
+                            <?php
+                            if ($perfil == 1) {
+                            ?>
+                                <td>
+                                    <center><?php echo $nivel; ?></center>
+                                </td>
+                            <?php
+                            }
+                            ?>
+                            <td>
+                                <center><?php echo $is_goleiro; ?></center>
+                            </td>
+                            <td nowrap>
+                                <center><?php echo $telefone; ?></center>
+                            </td>
+                        </tr>
+                    <?php
 
-            }
-            ?>
-        </tbody>
+                    }
+                    ?>
+                </tbody>
 
-    </table>
+            </table>
 </div>
 
 <script src="js/consultas/consulta-confirmacao/acoes-confirmar.js"></script>

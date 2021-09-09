@@ -15,8 +15,25 @@ function Sortear() {
         success: function (data) {
 
             $("#aguarde").attr("style", "display: none");
-            $("#resultado_grid").empty();
-            $("#resultado_grid").html(data);
+
+            if(data == "existe")
+            {
+                var existe = document.getElementById('existe_sorteio');
+                existe.style.display = 'block';
+                    setTimeout(function () {
+                        existe.style.display = 'none';
+                        window.location.reload();
+                        return false;
+                    }, 3000);
+                    return false;
+            }
+            else
+            {
+                $("#resultado_grid").empty();
+                $("#resultado_grid").html(data);
+                return false;
+            }
+
             return false;
         }
     });

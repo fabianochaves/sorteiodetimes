@@ -47,3 +47,4 @@
 
     <link rel="stylesheet" href="css/bootstrap-chosen.css" />
     <script src="js/chosen_modif.js"></script>
+    <script src="js/html2canvas.js"></script>

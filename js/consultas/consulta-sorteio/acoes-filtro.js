@@ -1,4 +1,4 @@
-/* JS Consulta de Menu */
+/* JS Consulta de Sorteio */
 
 function Filtrar() {
 
@@ -6,10 +6,12 @@ function Filtrar() {
 
     $("#aguarde").attr("style", "display: block; width: 120px; height: 120px;");
 
+    var dados = $("#form_filtro").serialize();
+
     jQuery.ajax({
         type: "POST",
-        url: "processos/consulta-menu/consulta-menu-filtro.php",
-        data: { ok: 1},
+        url: "processos/consulta-sorteio/consulta-sorteio-filtro.php",
+        data: dados,
         success: function (data) {
 
             $("#aguarde").attr("style", "display: none");
@@ -19,7 +21,7 @@ function Filtrar() {
             $.fn.dataTable.moment('DD/MM/YYYY');
             $('#tab_grid').dataTable().fnDestroy();
 
-            var colunas = "1, 2, 3, 4, 5, 6";
+            var colunas = "1, 2";
 
             var table = $('#tab_grid').DataTable({
                 "scrollY": "340px",
@@ -28,11 +30,12 @@ function Filtrar() {
                 "paging": false,
                 
                 "fixedColumns":   {
-                    leftColumns: 3
+                    leftColumns: 1
                 },
                 
+                
                 "info": false,
-                "order": [[1, "asc"]],
+                "order": [[2, "asc"]],
                 "language": {
                     "lengthMenu": "Exibir _MENU_ registros por página",
                     "zeroRecords": "Nenhum Registro encontrado...",
@@ -82,7 +85,7 @@ function Filtrar() {
                         exportOptions: {
                             columns: [colunas]
                         },
-                        title: 'Menu',
+                        title: 'Usuários',
                     },
                     {
                         extend: 'pdfHtml5',
@@ -93,7 +96,7 @@ function Filtrar() {
                         exportOptions: {
                             columns: [colunas]
                         },
-                        title: 'Menu',
+                        title: 'Usuários',
                         customize: function (doc) {
                             doc.pageMargins = [20, 15, 20, 15];
 
@@ -136,7 +139,16 @@ function Filtrar() {
 
 jQuery(document).ready(function () {
 
-        Filtrar();
+    jQuery('#btn_filtro').click(function () {
+
+        if($("#filtro").val() == ""){
+            return false;
+        }
+        else{
+            Filtrar();
+        }
+        
+    });
    
 
 });
@@ -195,28 +207,3 @@ jQuery(document).ready(function () {
     };
 
 }));
-
-
-$(function () {
-    $('.daterange').daterangepicker({
-
-        locale: {
-            format: 'DD/MM/YYYY',
-            separator: ' - ',
-            applyLabel: 'Aplicar',
-            cancelLabel: 'Cancelar',
-            fromLabel: 'De',
-            toLabel: 'At&eatilde',
-            customRangeLabel: 'Escolha',
-            daysOfWeek: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-            monthNames: ['Janeiro', 'Fevereiro', 'Mar&ccedil;o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            firstDay: 1
-        },
-
-        opens: 'left'
-    }, function (start, end, label) {
-        console.log(start.format('DD/MM/YYYY') + ' até ' + end.format('DD/MM/YYYY'));
-    }
-
-    );
-});

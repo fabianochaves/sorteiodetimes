@@ -66,7 +66,7 @@ date_default_timezone_set('America/Sao_Paulo');
                                         Ok!
                                     </div>
                                     <div class="invalid-feedback">
-                                        Escolha a Empresa!
+                                        Escolha a Partida!
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +74,7 @@ date_default_timezone_set('America/Sao_Paulo');
                             <div class="form-row">
                                 <div class="col-md-12">
                                     <center>
-                                        <button type="button" id="btn_filtro" class="btn btn-success" style="width: 73px;">Filtrar <i class="fa fa-check-circle" aria-hidden="true"></i></button>
+                                        <button type="button" id="btn_filtro" class="btn btn-success">Filtrar <i class="fa fa-search" aria-hidden="true"></i></button>
                                     </center>
                                 </div>
                             </div>

@@ -1,5 +1,5 @@
 <?php
-/* CXESCAD003GRAEDIT - EDIÇÃO DE USUÁRIO */
+/* EDIÇÃO DE USUÁRIO */
 include("../../Connections/connpdo.php");
 
 $id_usuario = $_POST['id_usuario'];

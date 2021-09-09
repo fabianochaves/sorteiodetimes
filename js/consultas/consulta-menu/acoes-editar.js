@@ -1,4 +1,4 @@
-/* CXESCAD042CONEDITAR - JS DO MODAL EDITAR DA CONSULTA DE MÓDULO GERAL */
+/* JS DO MODAL EDITAR DA CONSULTA DE MÓDULO/MENU GERAL */
 
 function ValidarForm() {
     var forms = document.getElementsByClassName('needs-validation');
@@ -41,7 +41,7 @@ $(document).ready(function () {
 
         jQuery.ajax({
             type: "POST",
-            url: "processos/CXESCAD042CON/CXESCAD042GRAEDIT.php",
+            url: "processos/consulta-menu/consulta-menu-gravar.php",
             data: dados,
             success: function (data) {
                 setTimeout(function () {

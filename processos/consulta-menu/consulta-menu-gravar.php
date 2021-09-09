@@ -1,7 +1,7 @@
 <?php
-//CXESCAD042GRAEDIT - MPS 18/12/2020 - CADASTRO DE MÓDULO GERAL
+//CADASTRO DE MÓDULO GERAL
 include("../../Connections/connpdo.php");
-include("../CXESCAD042/CXESCAD042LOG.php");
+
 
 $id = $_POST['id'];
 $tipo = $_POST['tipo'];
@@ -59,7 +59,7 @@ else
 	}
 	else
 	{
-		$logAlteracao = obterLogAlteracao($conn, $id);
+
 
 		$update = $conn->prepare("
 		UPDATE menus 
@@ -82,8 +82,7 @@ else
 
 		if($update == true)
 		{
-			$logAlteracao->salvar();
-
+		
 			echo 'ok_edicao';
 			return false;
 		}
