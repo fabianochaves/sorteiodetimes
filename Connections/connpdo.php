@@ -1,10 +1,10 @@
 <?php
 try {
     // dados da conexao:
-    $host = 'localhost';
+    $host = 'codegroup.mysql.dbaas.com.br';
     $database = 'codegroup';
-    $db_user = 'root';
-    $db_password = '';
+    $db_user = 'codegroup';
+    $db_password = 'Code@Group2021';
     $opcoes = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
 
     // instancia a classe
