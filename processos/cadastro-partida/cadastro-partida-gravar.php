@@ -2,8 +2,9 @@
 /* GRAVAR CADASTRO DE USUÁRIO */
 include("../../Connections/connpdo.php");
 
-$data = addslashes(utf8_decode($_POST['data_partida']));
-$data = date("Y-m-d", strtotime($data));
+$data = addslashes($_POST['data_partida']);
+$exp = explode("/", $data);
+$data = $exp[2] . "-" . $exp[1] . "-" . $exp[0];
 $hora = addslashes($_POST['hora']);
 $local = $_POST['local'];
 $jogadores = $_POST['nro_jogadores'];
